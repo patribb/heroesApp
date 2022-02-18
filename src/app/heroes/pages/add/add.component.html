@@ -1,0 +1,65 @@
+<h1>
+  {{ heroe.id ? "Editar" : "Nuevo" }}
+  Héroe
+  <small>{{ heroe.superhero }}</small>
+</h1>
+
+<div fxLayout="row" fxLayoutGap="40px" fxFlex.xs="column">
+  <div fxFlex="50" fxLayout="column">
+    <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="20px">
+      <mat-form-field fxFlex="100" fxLayout.xs="column">
+        <mat-label>Súper Héroe</mat-label>
+        <input type="text" matInput required [(ngModel)]="heroe.superhero" />
+      </mat-form-field>
+      <mat-form-field fxFlex="100">
+        <mat-label>Alter Ego</mat-label>
+        <input type="text" matInput required [(ngModel)]="heroe.alter_ego" />
+      </mat-form-field>
+    </div>
+    <mat-form-field>
+      <mat-label>Primera Aparición</mat-label>
+      <input
+        type="text"
+        matInput
+        required
+        [(ngModel)]="heroe.first_appearance"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Personajes</mat-label>
+      <input type="text" matInput required [(ngModel)]="heroe.characters" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Creador</mat-label>
+      <mat-select required [(ngModel)]="heroe.publisher">
+        <mat-option *ngFor="let publisher of publishers" [value]="publisher.id">
+          {{ publisher.desc }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Foto Url</mat-label>
+      <input type="url" matInput required [(ngModel)]="heroe.alt_img" />
+    </mat-form-field>
+    <br />
+    <div fxLayout>
+      <button (click)="save()" mat-raised-button color="primary">
+        <mat-icon>save</mat-icon>
+        {{ heroe.id ? "Actualizar" : "Crear" }}
+      </button>
+      <span class="spacer"></span>
+      <button
+        *ngIf="heroe.id"
+        mat-raised-button
+        color="warn"
+        (click)="deleteHeroe()"
+      >
+        <mat-icon>delete</mat-icon>
+        Eliminar
+      </button>
+    </div>
+  </div>
+  <div fxFlex="50">
+    <img [src]="heroe | image" />
+  </div>
+</div>
